@@ -15,6 +15,7 @@ function App() {
   const onClickNav = () =>{
     nav('/new')
   }
+
   return (
     <>
     <Link to={"/"}>Home페이지</Link>
