@@ -5,6 +5,8 @@ import Home from './pages/Home'
 import New from './pages/New'
 import Diary from './pages/Diary'
 import Unknown from './pages/Unknown'
+import { getEmotionImg } from './util/get-emotion-img'
+import { Button } from './component/Button'
 
 function App() {
 
@@ -18,10 +20,7 @@ function App() {
 
   return (
     <>
-    <Link to={"/"}>Home페이지</Link>
-    <Link to={"/new"}>New페이지</Link>
-    <Link to={"/diary/1"}>Diary페이지</Link>
-    <button onClick={onClickNav}>페이지 이동</button>
+    <Button></Button>
     <Routes>
       <Route path='/' element= {<Home/>}/>
       <Route path='/diary/:id' element={<Diary/>}/>
