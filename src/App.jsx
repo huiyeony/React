@@ -5,9 +5,8 @@ import Home from './pages/Home'
 import New from './pages/New'
 import Diary from './pages/Diary'
 import Unknown from './pages/Unknown'
-import { getEmotionImg } from './util/get-emotion-img'
-import { Button } from './component/Button'
-
+import Button  from './component/Button'
+import Header from './component/Header'
 function App() {
 
   //1. Home : 모든 일기를 조회하는 Home 페이지 
@@ -20,7 +19,17 @@ function App() {
 
   return (
     <>
-    <Button></Button>
+    <Header leftChild={<Button text={"left"}/>}
+    rightChild={<Button text={"right"}/>}
+    center={"center"}/>
+    <Button text={123}
+    />
+    <Button text={123}
+    type={"POSITIVE"}
+    />
+    <Button text={123}
+    type={"NEGATIVE"}
+    />
     <Routes>
       <Route path='/' element= {<Home/>}/>
       <Route path='/diary/:id' element={<Diary/>}/>
