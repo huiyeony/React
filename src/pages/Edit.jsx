@@ -4,28 +4,17 @@ import Button  from "../component/Button"
 import Editor from "../component/Editor"
 import { useContext, useEffect, useState } from "react"
 import { DiaryDispatchContext , DiaryStateContext } from "../App"
+import  useDiary  from '../hooks/useDiary'
 
 const Edit = ()=> {
     const params = useParams()
     const nav = useNavigate()
-    const [ diary, setDiary ] = useState()
+    
 
     const { onDelete, onUpdate } = useContext(DiaryDispatchContext)
-    const  data  = useContext(DiaryStateContext)
-
-    useEffect(()=>{
-
-        let curDiaryItem = data.find(item => 
-            Number(item.id) === Number(params.id))
-        if(!curDiaryItem){
-            window.alert("존재 하지 않는 일기 입니다!")
-            nav('/', { replace : true })
-        }
-        setDiary(curDiaryItem)
-
-    }, [params.id, data])
-
     
+    //현재 일기 불러오기
+    let diary = useDiary(params.id)
   
     const onClickDelete = ()=>{
         if(window.confirm("정말 삭제할까요? 한번 삭제된 일기는 복구되지 않아요!")){

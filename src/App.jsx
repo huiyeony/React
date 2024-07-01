@@ -29,19 +29,19 @@ const mockData =[
     id:1,
     createdDate : new Date("2024-07-26").getTime(),
     emotionId:1,
-    content:"1번째 일기장"
+    content:"diary 1"
   },
   {
     id:2,
     createdDate : new Date("2024-07-27").getTime(),
     emotionId:2,
-    content:"2번째 일기장"
+    content:"diary 2"
   },
   {
     id:3,
     createdDate : new Date("2024-06-26").getTime(),
     emotionId:3,
-    content:"3번째 일기장"
+    content:"diary 3"
   },
 ]
 export const DiaryStateContext = createContext()
@@ -57,7 +57,7 @@ function App() {
   const [state ,dispatch] = useReducer(reducer , mockData)
   const idRef = useRef(4)
 
-  const onCreate = (createdTime, emotionId, content)=>{
+  const onCreate = (createdDate, emotionId, content)=>{
     dispatch({
       type:"CREATE",
       data :{

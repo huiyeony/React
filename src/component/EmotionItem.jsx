@@ -11,7 +11,7 @@ const EmotionItem = ({onClick, emotionId, emotionName, isSelected})=>{
         onClick({
             target:{
                 name:"emotionId",
-                value:`${emotionId}`
+                value: Number(emotionId)
             }
         })
     }}>
