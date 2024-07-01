@@ -1,7 +1,7 @@
 .Editor >section{
     margin-bottom: 80px;
+    
 }
-
 .Editor >section >h4{
     font-size: 22px;
     font-weight: bold;
@@ -23,7 +23,7 @@
     resize: vertical;
 }
 .Editor .emotion_section .emotion_list_wrapper{
-    display: flex;
+    display:flex;
     justify-content: space-around;
     gap: 2%;
     cursor: pointer;

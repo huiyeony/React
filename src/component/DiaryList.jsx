@@ -2,8 +2,8 @@ import './DiaryList.css'
 import Button from './Button'
 import DiaryItem from './DiaryItem'
 import { useState } from 'react'
-
-const DiaryList = ({data})=>{
+import { useNavigate } from 'react-router-dom'
+const  DiaryList = ({data})=>{
     const [sortedType, setSortedType] = useState("oldest")
     const getSortedData = ()=>{
             return data.toSorted(
@@ -19,6 +19,7 @@ const DiaryList = ({data})=>{
         setSortedType(e.target.value)
        
     }
+    const nav = useNavigate()
     const sortedData = getSortedData()
     return <div className='DiaryList'>
         <div className='menu_bar'>
@@ -26,7 +27,8 @@ const DiaryList = ({data})=>{
                 <option value={"latest"}>최신 순</option>
                 <option value={"oldest"}>오래된 순</option>
             </select>
-            <Button type={"POSITIVE"} text={"새로운 일기 작성"}/>
+            <Button type={"POSITIVE"} text={"새로운 일기 작성"}
+            onClick={()=>{nav('/new')}}/>
             
             
         </div>

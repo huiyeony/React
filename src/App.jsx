@@ -27,19 +27,19 @@ function reducer(state,action){
 const mockData =[
   {
     id:1,
-    createdDate : new Date("2024-06-27").getTime(),
+    createdDate : new Date("2024-07-26").getTime(),
     emotionId:1,
     content:"1번째 일기장"
   },
   {
     id:2,
-    createdDate : new Date("2024-06-26").getTime(),
+    createdDate : new Date("2024-07-27").getTime(),
     emotionId:2,
     content:"2번째 일기장"
   },
   {
     id:3,
-    createdDate : new Date("2024-05-26").getTime(),
+    createdDate : new Date("2024-06-26").getTime(),
     emotionId:3,
     content:"3번째 일기장"
   },
@@ -57,19 +57,19 @@ function App() {
   const [state ,dispatch] = useReducer(reducer , mockData)
   const idRef = useRef(4)
 
-  const onCreate = ()=>{
+  const onCreate = (createdTime, emotionId, content)=>{
     dispatch({
       type:"CREATE",
       data :{
         id: idRef.current,
-        createdDate:new Date().getTime(),
-        emotionId:idRef.current,
-        context:`${idRef.current}번째 일기 내용`
+        createdDate,
+        emotionId ,
+        content
       }
     })
     idRef.current += 1;
   }
-  const onUpdate = (id,createdDate,emotionId,content) =>{
+  const onUpdate = (id, createdDate, emotionId, content) =>{
     dispatch({
       type:"UPDATE",
       data:{
@@ -92,7 +92,7 @@ function App() {
   return (
     <>
 
-    <DiaryStateContext.Provider value ={state}>
+    <DiaryStateContext.Provider value = {state}>
       <DiaryDispatchContext.Provider
       value = {{onCreate,onUpdate,onDelete}}>
         <Routes>
