@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom"
 import { DiaryStateContext } from "../App"
 import { useContext , useState, useEffect } from "react"
 const useDiary = (diaryId) => {
     const data = useContext(DiaryStateContext)
     const [currentDiary, setCurrentDiary] = useState()
-
+    const nav = useNavigate()
+    
     useEffect(()=>{
 
         let curDiaryItem = data.find(item => 

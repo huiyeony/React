@@ -14,7 +14,7 @@ const DiaryItem = ({id, createdDate, emotionId, content}) => {
         <div className='info_section'
             onClick={()=>{nav(`/diary/${id}`)}}>
             <div className='created_date'>{new Date(createdDate).toLocaleDateString()}</div>
-            <div className='content'>{`>>${content}`}</div>
+            <div className='content'>{`${content}`}</div>
         </div>
         <div className='button_section'
             onClick={()=>{nav(`/edit/${id}`)}}>

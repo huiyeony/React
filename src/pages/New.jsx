@@ -4,10 +4,13 @@ import Editor from "../component/Editor"
 import { useContext} from "react"
 import { useNavigate } from "react-router-dom"
 import { DiaryDispatchContext } from "../App"
+import usePageTitle from "../hooks/usePageTitle"
 
 
 const New = ()=>{
     const nav = useNavigate()
+
+    usePageTitle("새로운 일기 작성")
     const {onCreate} = useContext(DiaryDispatchContext)
     const onSubmit = (input)=>{
         onCreate(

@@ -1,5 +1,5 @@
 import './App.css'
-import { useReducer, useRef, createContext } from 'react'
+import { useState, useReducer, useRef, createContext ,useEffect } from 'react'
 import { Routes, Route,useNavigate, Link } from "react-router-dom"
 import Home from './pages/Home'
 import New from './pages/New'
@@ -10,40 +10,34 @@ import Button  from './component/Button'
 
 
 function reducer(state,action){
+  let nextState = []
   switch(action.type){
+    //로컬 스토리지에서 불러오기
+    case "INIT":
+      return action.data
+      break;
     //일기 생성
     case "CREATE":
-      return [ action.data ,...state];
+      nextState = [ action.data ,...state];
+      break;
     case "UPDATE":
-      return state.map(item => String(item.id) === String(action.data.id) ? action.data:item);
+      nextState = state.map(item => String(item.id) === String(action.data.id) ? action.data:item);
+      break;
     case "DELETE":
-      return state.filter( 
+      nextState = state.filter( 
         item => String(item.id) !== String(action.data.id));
+        break;
     default:
-      throw Error('Unknown action: ' + action.type);
+      return state;
+      
+    
   }
+  
+  localStorage.setItem("diary", JSON.stringify(nextState))
+  return nextState;
    
 }
-const mockData =[
-  {
-    id:1,
-    createdDate : new Date("2024-07-26").getTime(),
-    emotionId:1,
-    content:"diary 1"
-  },
-  {
-    id:2,
-    createdDate : new Date("2024-07-27").getTime(),
-    emotionId:2,
-    content:"diary 2"
-  },
-  {
-    id:3,
-    createdDate : new Date("2024-06-26").getTime(),
-    emotionId:3,
-    content:"diary 3"
-  },
-]
+
 export const DiaryStateContext = createContext()
 export const DiaryDispatchContext = createContext()
 
@@ -54,8 +48,9 @@ function App() {
   //3. Diary: 일기의 상세 내역을 보여주는 Diary 페이지
   //4. Edit : 일기를 수정하는 Edit 페이지 
   
-  const [state ,dispatch] = useReducer(reducer , mockData)
-  const idRef = useRef(4)
+  const [isLoading, setIsLoading] = useState(true)
+  const [state ,dispatch] = useReducer(reducer , [])
+  const idRef = useRef(0)
 
   const onCreate = (createdDate, emotionId, content)=>{
     dispatch({
@@ -89,6 +84,37 @@ function App() {
       }
     })
   }
+  
+  useEffect(()=>{
+    const storedData = localStorage.getItem("diary")
+    if(!storedData){
+      setIsLoading(false)
+      return;
+    }
+      
+    const parsedData = JSON.parse(storedData)
+    if(!Array.isArray(parsedData)){
+      setIsLoading(false)
+      return;
+    }
+      
+
+    let maxId = 0;
+    parsedData.forEach((item)=> {
+      if(item.id > maxId)
+        maxId = item.id
+    })
+    idRef.current = maxId + 1;
+  
+    dispatch({
+      type:"INIT",
+      data: parsedData
+    })
+    setIsLoading(false)
+
+  },[])
+    
+  
   return (
     <>
 

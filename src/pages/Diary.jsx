@@ -4,10 +4,14 @@ import Viewer from "../component/Viewer"
 import Button from "../component/Button"
 import useDiary  from '../hooks/useDiary'
 import getStringDate from "../util/get-string-date"
+import usePageTitle from "../hooks/usePageTitle"
 const Diary = ()=>{
+
     const nav = useNavigate()
     const params = useParams()
 
+    usePageTitle(`${params.id}번째 일기`)
+    
     const curDiaryItem = useDiary(params.id)
     if(!curDiaryItem)
         return <div>데이터를 로드하고 있습니다!</div>
@@ -25,6 +29,7 @@ const Diary = ()=>{
             nav(-1)
         }}/>}
         rightChild={<Button 
+            type={"POSITIVE"}
             text="수정하기"
             onClick={()=>{
                 nav(`/edit/${params.id}`)

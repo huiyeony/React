@@ -5,11 +5,13 @@ import Editor from "../component/Editor"
 import { useContext, useEffect, useState } from "react"
 import { DiaryDispatchContext , DiaryStateContext } from "../App"
 import  useDiary  from '../hooks/useDiary'
+import usePageTitle from "../hooks/usePageTitle"
 
 const Edit = ()=> {
     const params = useParams()
     const nav = useNavigate()
     
+    usePageTitle(`${params.id}번째 일기 수정`)
 
     const { onDelete, onUpdate } = useContext(DiaryDispatchContext)
     
