@@ -15,7 +15,7 @@ function reducer(state,action){
     //로컬 스토리지에서 불러오기
     case "INIT":
       return action.data
-      break;
+     
     //일기 생성
     case "CREATE":
       nextState = [ action.data ,...state];
